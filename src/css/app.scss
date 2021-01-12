@@ -1,0 +1,28 @@
+// app global css in SCSS form
+/* customize the scrollbar in the **.notes_container** */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 4px;
+
+    &-track {
+        background: #f1f1f1;
+    }
+
+    &-thumb {
+        background: transparent;
+        border-radius: 5px;
+
+        &:hover {
+            background: darken(#F0F3FE, 30%);
+        }
+    }
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: Helvetica New, Helvetica, Arial, sans-serif;
+}
