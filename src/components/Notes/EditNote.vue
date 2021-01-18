@@ -1,11 +1,13 @@
 <template>
     <div class="q-px-md row">
-        <form @submit.prevent='submitForm' class="col">
+        <!-- <form @submit.prevent='submitForm' class="col">
             <note-title :noteTitle.sync="note.title"/>
             <note-text-area ref="noteBody" :noteText.sync="note.body"/>
             <q-btn color="primary" label="Save" type="submit"/>
-        </form>
-        <note-render-view class="q-mx-md" :renderNote.sync="renderNote"/>
+        </form> -->
+        <note-toolbar :NoteTitle.sync='note.title'/>
+        <note-editor :body.sync='note.body'/>
+        <note-render-view class="q-mx-md" :renderMarkdown.sync="renderMarkdown"/> 
     </div>
 </template>
 <script>
@@ -13,16 +15,20 @@ import marked from "marked"
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
+    name: "EditorNoteView",
     data() {
         return {
-            note: {}
+            note: {
+                title: '',
+                body: ''
+            }
         }
     }, 
     computed: {
         ...mapGetters({
             notes:'noteById'
             }),
-        renderNote() {
+        renderMarkdown() {
             return marked(this.note.body);
         }
     },
@@ -39,9 +45,9 @@ export default {
         }
     },
     components: {
-        'note-title': require('components/Notes/Shared/NoteTitle.vue').default,
-        'note-text-area': require('components/Notes/Shared/NoteTextArea.vue').default,
-        'note-render-view': require('components/Notes/Shared/NoteRender.vue').default
+        "note-editor": require("./Shared/NoteEditor.vue").default,
+        "note-render-view": require("./Shared/NoteRender.vue").default,
+        "note-toolbar": require("./Shared/NoteToolbar.vue").default
     },
     mounted() {
         this.note = Object.assign({}, this.notes(this.$route.params.id))

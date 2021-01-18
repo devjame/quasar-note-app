@@ -1,10 +1,7 @@
 <template>
-    <div class="q-px-md row">
-        <form @submit.prevent='submitForm' class="col">
-            <note-title :noteTitle.sync="noteToSubmit.title"/>
-            <note-text-area ref="noteBody" :noteText.sync="noteToSubmit.body"/>
-            <q-btn color="primary" label="Save" type="submit"/>
-        </form>
+    <div class="q-px-md">
+        <note-toolbar />
+        <note-editor :body.sync="noteToSubmit.body"/>
         <note-render-view class="q-mx-md" :renderNote.sync="renderNote"/>
     </div>
 </template>
@@ -38,9 +35,11 @@ export default {
         }
     },
     components: {
-        'note-title': require('components/Notes/Shared/NoteTitle.vue').default,
+        /* 'note-title': require('components/Notes/Shared/NoteTitle.vue').default,
         'note-text-area': require('components/Notes/Shared/NoteTextArea.vue').default,
-        'note-render-view': require('components/Notes/Shared/NoteRender.vue').default
+        'note-render-view': require('components/Notes/Shared/NoteRender.vue').default */
+        'note-editor': require('components/Notes/Shared/NoteEditor').default,
+        "note-toolbar": require("./Shared/NoteToolbar.vue").default
     }
 }
 </script>
