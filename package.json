@@ -16,7 +16,9 @@
     "quasar": "^1.0.0"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.0"
+    "@quasar/app": "^2.0.0",
+    "vue-directive-markdown": "^1.2.1",
+    "vue2-ace-editor": "^0.0.15"
   },
   "browserslist": [
     "last 10 Chrome versions",
