@@ -1,88 +1,70 @@
 <template>
-  <q-layout view="hHh LpR fFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
-
-        <q-toolbar-title>
-          To-Note
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
+  <q-layout view="hHh lpR lFf">
 
     <q-drawer
-      v-model="leftDrawerOpen"
       show-if-above
-      bordered
-      content-class="bg-grey-1"
-    >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Navigation
-        </q-item-label>
-
-        <q-item
-          v-for="nav in navs"
-          :key="nav.label"
-          :to="nav.to"
-          exact
-          clickable
-          v-ripple>
-          <q-item-section avatar>
-            <q-icon color="primary" :name="nav.icon" />
-          </q-item-section>
-
-          <q-item-section>{{ nav.label }}</q-item-section>
-        </q-item>
-        <q-btn rounded color="primary" class="absolute-center">
-          <div>New Note</div>
-          <q-icon right size="2em" name="map" />
-        </q-btn>
-      </q-list>
+      v-model="drawer"
+      :width="350"
+      :breakpoint="400"
+      bordered>
+      <div class="absolute-top q-my-lg text-center bg-transparent">
+          <p class="logo">To Note</p>
+      </div>
+      <q-scroll-area :style="scrollAreaStyle">
+          <q-list padding>
+            <note
+              v-for="note in notes"
+              :key="note.id"
+              :note="note">
+            </note>
+          </q-list>
+        </q-scroll-area>
+        <div class="absolute-bottom text-center q-pb-lg bg-transparent">
+         <q-btn
+            to="/new_note"
+            round
+            color="primary"
+            dense
+            size="20px"
+            icon="add" />
+        </div>
     </q-drawer>
-    <q-footer elevated>
-        <q-toolbar>
-          <q-toolbar-title>Footer</q-toolbar-title>
-        </q-toolbar>
-    </q-footer>
+
     <q-page-container>
-      <router-view />
+      <router-view :key="$route.path"/>
     </q-page-container>
+
   </q-layout>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
-  name: 'MainLayout',
   data () {
     return {
-      leftDrawerOpen: true,
-      navs: [
-        {
-          label: 'Note',
-          icon: 'notes',
-          to: '/'
-        },
-        {
-          label: 'New Note',
-          icon: 'note_add',
-          to: '/create'
-        }
-      ]
+      drawer: false,
+      scrollAreaStyle: {
+        height: "calc(100% - 150px)",
+        marginTop: "80px",
+        marginBottom: "40px"
+      }
     }
+  },
+  computed: {
+    ...mapGetters(['notes'])
+  },
+  components: {
+    'note': require('components/Notes/Notes.vue').default
   }
 }
 </script>
+<style lang="scss">
+  .logo {
+    font-size: 2rem;
+  }
+  .q-drawer__content {
+    background: linear-gradient(to bottom, #294666 0%,#254566 16%,#1d4066 100%);
+    color: #ffffff;
+  }
+</style>
