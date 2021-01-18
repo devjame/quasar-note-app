@@ -7,11 +7,11 @@ const routes = [
       { 
         path: '',
         name: 'home',
-        component: () => import('pages/PageNote.vue')
+        component: () => import('pages/Home.vue')
       },
       {
-        path: 'create',
-        name: 'create',
+        path: 'new_note',
+        name: 'new_note',
         component: () => import('pages/PageEditor.vue') 
       },
       {
