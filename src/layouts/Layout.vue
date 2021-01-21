@@ -7,8 +7,8 @@
       :width="350"
       :breakpoint="400"
       bordered>
-      <div class="absolute-top q-my-lg text-center bg-transparent">
-          <p class="logo">To Note</p>
+      <div class="text-center bg-transparent">
+          <h1 class="logo">To Note</h1>
       </div>
       <q-scroll-area :style="scrollAreaStyle">
           <q-list padding>
@@ -46,7 +46,6 @@ export default {
       drawer: false,
       scrollAreaStyle: {
         height: "calc(100% - 150px)",
-        marginTop: "80px",
         marginBottom: "40px"
       }
     }
@@ -60,9 +59,6 @@ export default {
 }
 </script>
 <style lang="scss">
-  .logo {
-    font-size: 2rem;
-  }
   .q-drawer__content {
     background: linear-gradient(to bottom, #294666 0%,#254566 16%,#1d4066 100%);
     color: #ffffff;
