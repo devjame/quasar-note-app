@@ -1,5 +1,5 @@
 <template lang="">
-    <div v-html="renderMarkdown" class="q-pa-sm bg-grey-2 col">
+    <div v-html="renderMarkdown" class=" preview q-pa-sm bg-grey-2 col">
         
     </div>
 </template>
@@ -8,6 +8,9 @@ export default {
     props: ['renderMarkdown']
 }
 </script>
-<style lang="">
-    
+<style scope lang="scss">
+    .preview {
+        overflow-y: hidden;
+        height: 300px;
+    }
 </style>
