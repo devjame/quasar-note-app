@@ -1,8 +1,10 @@
 <template>
     <div class="q-px-md">
-        <note-toolbar />
-        <note-editor :body.sync="noteToSubmit.body"/>
-        <note-render-view class="q-mx-md" :renderNote.sync="renderNote"/>
+        <note-toolbar @saveNote="submitForm"/>
+        <note-editor ref='noteBody'  v-if="render" :body.sync="noteToSubmit.body"/>
+        <note-render-view
+            v-else
+            :renderNote.sync="renderNote" />
     </div>
 </template>
 <script>
@@ -19,6 +21,9 @@ export default {
         }
     },
     computed: {
+        render() {
+            return this.$store.getters.preview
+        },
         renderNote() {
             return marked(this.noteToSubmit.body);
         }
@@ -26,18 +31,31 @@ export default {
     methods: {
         ...mapActions(['addNote']),
         submitForm() {
-            if(!this.$refs.noteBody.$refs.body.hasError) {
+            if(!this.noteToSubmit.body.length) {
+                this.ErrorOnSave()
+            } else {
                 this.submitNote()
             }
         },
         submitNote() {
             this.$store.dispatch('addNote', this.noteToSubmit)
+        },
+        ErrorOnSave() {
+            this.$q.dialog({
+            title: 'Error',
+            message: 'Write some note in order to save it.',
+            cancel: true,
+            persistent: true
+            }).onOk(() => {
+            }).onCancel(() => {
+            // put an action for cancel event
+            })
         }
     },
     components: {
         /* 'note-title': require('components/Notes/Shared/NoteTitle.vue').default,
-        'note-text-area': require('components/Notes/Shared/NoteTextArea.vue').default,
-        'note-render-view': require('components/Notes/Shared/NoteRender.vue').default */
+        'note-text-area': require('components/Notes/Shared/NoteTextArea.vue').default,*/
+        'note-render-view': require('components/Notes/Shared/NoteRender.vue').default,
         'note-editor': require('components/Notes/Shared/NoteEditor').default,
         "note-toolbar": require("./Shared/NoteToolbar.vue").default
     }

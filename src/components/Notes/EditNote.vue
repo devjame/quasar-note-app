@@ -6,8 +6,8 @@
             <q-btn color="primary" label="Save" type="submit"/>
         </form> -->
         <note-toolbar :NoteTitle.sync='note.title'/>
-        <note-editor :body.sync='note.body'/>
-        <note-render-view class="q-mx-md" :renderMarkdown.sync="renderMarkdown"/> 
+        <note-editor v-if="render" :body.sync='note.body'/>
+        <note-render-view v-else :renderMarkdown.sync="renderMarkdown"/> 
     </div>
 </template>
 <script>
@@ -30,6 +30,9 @@ export default {
             }),
         renderMarkdown() {
             return marked(this.note.body);
+        },
+        render() {
+            return this.$store.getters.preview
         }
     },
     methods: {
