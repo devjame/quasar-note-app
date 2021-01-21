@@ -1,9 +1,9 @@
 <template>
     <q-input
-        outlined
+        autofocus
         :value="noteTitle"
         @input="$emit('update:noteTitle', $event)"
-        class="q-mb-md title q-ml-xs"
+        class="q-mb-xs q-ml-md"
         label="Title" />
 </template>
 <script>
@@ -12,7 +12,4 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-    .title {
-        height: 100%;
-    }
 </style>
