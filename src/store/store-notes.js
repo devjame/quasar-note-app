@@ -1,6 +1,7 @@
 import { uid } from 'quasar'
 
 const state = {
+    preview: false,
     notes: [
         {
           id: 1,
@@ -44,6 +45,10 @@ const mutations = {
         Object.assign(v, note)
       }
     })
+  },
+  tooglePreview(state, payload) {
+    state.preview = payload
+    console.log(state.preview)
   }
 }
 
@@ -68,6 +73,9 @@ const actions = {
   },
   editNote({commit}, note) {
     commit('editNote', note)
+  },
+  tooglePreview({ commit }, payload) {
+    commit('tooglePreview', payload)
   }
 }
 
@@ -77,6 +85,9 @@ const getters = {
     },
     noteById: (state) => (id) => {
       return state.notes.find(v => v.id == id)
+    },
+    preview: (state) => {
+      return state.preview
     }
 }
 
