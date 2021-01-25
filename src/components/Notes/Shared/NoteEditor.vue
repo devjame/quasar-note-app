@@ -5,7 +5,7 @@
         @input="$emit('update:body', $event)"
         @init="editorInit"
         lang="markdown"
-        theme="dracula"
+        theme="github"
         :height="height" />
 </template>
 <script>
@@ -14,15 +14,14 @@ export default {
     props: ['body'],
     data() {
         return {
-            body: '',
-            height: window.innerHeight - 100
+            height: window.innerHeight - 150
         }
     },
     methods: {
         editorInit() {
             require("brace/ext/language_tools");
             require("brace/mode/markdown");
-            require("brace/theme/dracula");
+            require("brace/theme/github");
         }
     },
     components: {
