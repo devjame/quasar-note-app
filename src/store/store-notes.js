@@ -1,7 +1,7 @@
 import { uid } from 'quasar'
 
 const state = {
-    preview: false,
+    preview: true,
     notes: [
         {
           id: 1,
@@ -48,7 +48,6 @@ const mutations = {
   },
   tooglePreview(state, payload) {
     state.preview = payload
-    console.log(state.preview)
   }
 }
 
