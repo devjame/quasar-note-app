@@ -1,7 +1,12 @@
 <template>
     <div class="q-px-md">
-        <note-toolbar @saveNote="submitForm"/>
-        <note-editor ref='noteBody'  v-if="render" :body.sync="noteToSubmit.body"/>
+        <note-toolbar
+          :noteTitle.sync='noteToSubmit.title'
+          @savenote="submitForm" />
+        <note-editor
+          ref='noteBody'
+          v-if="render"
+          :body.sync="noteToSubmit.body" />
         <note-render-view
             v-else
             :renderNote.sync="renderNote" />
@@ -53,8 +58,6 @@ export default {
         }
     },
     components: {
-        /* 'note-title': require('components/Notes/Shared/NoteTitle.vue').default,
-        'note-text-area': require('components/Notes/Shared/NoteTextArea.vue').default,*/
         'note-render-view': require('components/Notes/Shared/NoteRender.vue').default,
         'note-editor': require('components/Notes/Shared/NoteEditor').default,
         "note-toolbar": require("./Shared/NoteToolbar.vue").default

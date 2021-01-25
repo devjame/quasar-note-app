@@ -5,9 +5,15 @@
             <note-text-area ref="noteBody" :noteText.sync="note.body"/>
             <q-btn color="primary" label="Save" type="submit"/>
         </form> -->
-        <note-toolbar :NoteTitle.sync='note.title'/>
-        <note-editor v-if="render" :body.sync='note.body'/>
-        <note-render-view v-else :renderMarkdown.sync="renderMarkdown"/> 
+        <note-toolbar
+          :noteTitle.sync='note.title'
+          @savenote="submitForm" />
+        <note-editor
+          v-if="render"
+          :body.sync='note.body' />
+        <note-render-view
+          v-else
+          :renderMarkdown.sync="renderMarkdown" />
     </div>
 </template>
 <script>
@@ -38,13 +44,26 @@ export default {
     methods: {
         ...mapActions(['edditNote']),
         submitForm() {
-            if(!this.$refs.noteBody.$refs.body.hasError) {
+            if(!this.note.body.length) {
+                this.ErrorOnSave()
+            } else {
                 this.updateNote()
             }
         },
         updateNote() {
             this.$store.dispatch('editNote', this.note)
             //log(this.note)
+        },
+        ErrorOnSave() {
+            this.$q.dialog({
+            title: 'Error',
+            message: 'Write some note in order to save it.',
+            cancel: true,
+            persistent: true
+            }).onOk(() => {
+            }).onCancel(() => {
+            // put an action for cancel event
+            })
         }
     },
     components: {
