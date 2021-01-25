@@ -1,10 +1,15 @@
 <template>
     <div 
-        class="bg-grey-3 row relative-position q-mb-xs toolbar-container round full-width">
-        <note-title class="col-4" :noteTitle.sync='NoteTitle' />
+        class="bg-grey-3 row relative-position q-mb-xs toolbar-container full-width">
+        <q-input
+            autofocus
+            :value="noteTitle"
+            @input="$emit('update:noteTitle', $event)"
+            class="q-mb-xs q-ml-md col-4"
+            label="Title" />
         <div class="text-center absolute-right q-ma-md">
             <q-btn
-                @click="$emit('saveNote')"
+                @click="$emit('savenote')"
                 dense
                 round
                 color="primary"
@@ -22,7 +27,7 @@
 </template>
 <script>
 export default {
-    props: ['NoteTitle'],
+    props: ['noteTitle'],
     data() {
         return {
             renderText: 'Preview'
@@ -40,9 +45,6 @@ export default {
                 this.$store.dispatch('tooglePreview', false)
             }
         }
-    },
-    components: {
-        "note-title": require("./NoteTitle.vue").default
     }
 }
 </script>
