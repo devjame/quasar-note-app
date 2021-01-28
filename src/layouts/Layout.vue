@@ -12,8 +12,15 @@
       </div>
       <q-scroll-area :style="scrollAreaStyle">
           <q-list padding>
+            <q-spinner
+            class="absolute-center"
+            v-if="data == null"
+              color="primary"
+              size="3em"
+            />
             <note
-              v-for="note in notes"
+              v-else
+              v-for="note in data['data']"
               :key="note.id"
               :note="note">
             </note>
@@ -39,6 +46,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { api } from 'boot/axios'
 
 export default {
   data () {
@@ -47,7 +55,8 @@ export default {
       scrollAreaStyle: {
         height: "calc(100% - 150px)",
         marginBottom: "40px"
-      }
+      },
+      data: null
     }
   },
   computed: {
@@ -55,6 +64,10 @@ export default {
   },
   components: {
     'note': require('components/Notes/Notes.vue').default
+  },
+  mounted() {
+    api.get('/notes')
+    .then(resp => (this.data = resp.data))
   }
 }
 </script>
